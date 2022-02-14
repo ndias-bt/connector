@@ -29,6 +29,4 @@ COPY . .
 
 COPY --from=development /usr/src/app/dist ./dist
 
-RUN gcloud run services list --platform managed
-
 CMD ["node", "dist/main"]
