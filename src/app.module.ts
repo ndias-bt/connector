@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { RegistrationService } from './services/registration/registration.service';
 import { configuration } from './configuration'; // this is new
+import { OrgconfigsController } from './orgconfigs/orgconfigs.controller';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { configuration } from './configuration'; // this is new
     }),
     HttpModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, OrgconfigsController],
   providers: [AppService, RegistrationService],
 })
 export class AppModule {}

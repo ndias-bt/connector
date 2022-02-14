@@ -35,13 +35,47 @@ export class AppService {
   }
 
   getForm(): string {
-    let html = '<h2>Sample Form</h2>';
-    html += '<form>';
+    const fs = require('fs');
+    const orgId = 'JQH';
+    const orgConfig = [];
+
+    try {
+      const data = fs.readFileSync('orgconfigs.txt', 'utf8');
+
+      data.split(/\r?\n/).forEach((line) => {
+        const lineData = line.split(/,\s*/);
+        const orgId = lineData[0];
+        const name = lineData[1];
+        const email = lineData[2];
+
+        orgConfig[orgId] = {
+          name: name,
+          email: email,
+        };
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
+    console.log(orgConfig);
+
+    let html = '<h2>Sample Config Form</h2>';
+    const url = 'http://localhost:3000';
+
+    html += 'Current config for orgId=' + orgId + '<br>\n';
+    html += 'name=' + orgConfig[orgId].name + '<br>\n';
+    html += 'email=' + orgConfig[orgId].email + '<br>\n';
+    html += '<hr>\n';
+
+    html += `<form method="POST" action="${url}/orgconfigs/${orgId}">`;
     html += '<label for="name">Name:</label>';
     html += '<input type="text" id="name" name="name" value="John Smith">';
     html += '<br>';
     html += '<label for="email">Email:</label>';
     html += '<input type="text" id="email" name="email" value="">';
+    html += '<br>';
+    html += '<input type="submit">';
+    html += '</form>';
     return html;
   }
 }
