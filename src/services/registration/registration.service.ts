@@ -38,7 +38,7 @@ export class RegistrationService implements OnApplicationBootstrap {
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       endpoints: [infoEndpoint, configEndpoint],
-      name: this.config.get<string>('name') + '-' + Date.now(),
+      name: this.config.get<string>('name');
       version: '1.0',
     };
     return this.http

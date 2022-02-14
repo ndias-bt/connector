@@ -5,20 +5,21 @@ import { google } from 'googleapis';
 
 function getConnectorUrl() {
   console.log("Detecting connector url...");
-  let connectorUrl = '';
+
+  let connectorUrl = 'http://' + process.env.IP_ADDRESS + ':' + process.env.PORT;
+  console.log("Using default from environment setting:", connectorUrl);
+
   if (process.env.RUN_ENVIRONMENT === 'gcp') {
-    console.log('GCP run environment detected. Looking up connector url using cloud run api.');
+    console.log('GCP run environment detected. Searching for connector url using cloud run api.');
     getCloudRunConnectorUrl(process.env.NAME).then((urls) => {
       if (urls.length === 1) {
         connectorUrl = urls.pop();
+        console.log("Found url using cloud run api:", connectorUrl);
       }
     });
-  } else {
-    console.log("Getting connector URL from environment");
-    connectorUrl = 'http://' + process.env.IP_ADDRESS + ':' + process.env.PORT;
   }
 
-  console.log('connector url: ', connectorUrl);
+  console.log('final connector url: ', connectorUrl);
   return connectorUrl;
 }
 
