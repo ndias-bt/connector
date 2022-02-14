@@ -21,6 +21,7 @@ export class AppController {
     return {
       name: this.config.get<string>('name'),
       displayName: this.config.get<string>('displayName'),
+      description: this.config.get<string>('description'),
       version: this.config.get<string>('version'),
       company: this.config.get<string>('company'),
       icon: this.config.get<string>('url') + '/icon',

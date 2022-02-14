@@ -1,6 +1,7 @@
 export interface Identity {
     name: string;
     displayName: string;
+    description: string;
     version: string;
     company: string;
     icon: string;
