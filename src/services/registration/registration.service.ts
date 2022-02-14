@@ -19,12 +19,6 @@ export class RegistrationService implements OnApplicationBootstrap {
   }
 
   register() {
-    const baseUrl =
-      'http://' +
-      this.config.get<string>('ipAddress') +
-      ':' +
-      this.config.get<string>('port');
-
     const configEndpoint: Endpoint = {
       name: 'config',
       address: this.config.get<string>('ipAddress'),
@@ -40,7 +34,7 @@ export class RegistrationService implements OnApplicationBootstrap {
     };
 
     const connector: Connector = {
-      base_url: baseUrl,
+      base_url: this.config.get<string>('url'),
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       endpoints: [infoEndpoint, configEndpoint],
