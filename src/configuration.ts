@@ -8,7 +8,7 @@ function getConnectorUrl() {
   let connectorUrl = '';
   if (process.env.RUN_ENVIRONMENT === 'gcp') {
     console.log('GCP run environment detected. Looking up connector url using cloud run api.');
-    getCloudRunConnectorUrl('connector-with-form').then((urls) => {
+    getCloudRunConnectorUrl(process.env.NAME).then((urls) => {
       if (urls.length === 1) {
         connectorUrl = urls.pop();
       }
