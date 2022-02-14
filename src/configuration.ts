@@ -46,6 +46,8 @@ async function getCloudRunConnectorUrl(connectorName) {
     scopes: ['https://www.googleapis.com/auth/cloud-platform'],
   });
 
+  console.log('### google auth', auth);
+
   const authClient = await auth.getClient();
   google.options({ auth: authClient });
 
