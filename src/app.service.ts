@@ -4,7 +4,6 @@ import { Customer } from './interfaces/customer.interface';
 @Injectable()
 export class AppService {
   private customer: Customer;
-  private config: ConfigService;
 
   setCustomer(customer: Customer): void {
     this.customer = customer;
