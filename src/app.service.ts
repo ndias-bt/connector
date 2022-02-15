@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Customer } from './interfaces/customer.interface';
 
 @Injectable()
@@ -37,6 +36,7 @@ export class AppService {
   }
 
   getForm(): string {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const fs = require('fs');
     const orgId = 'JQH';
     const orgConfig = [];
@@ -62,7 +62,7 @@ export class AppService {
     console.log(orgConfig);
 
     let html = '<h2>Sample Config Form</h2>';
-    const url = this.config.get<string>('url');
+    const url = process.env.BASE_URL;
 
     html += 'Current config for orgId=' + orgId + '<br>\n';
     html += 'name=' + orgConfig[orgId].name + '<br>\n';
