@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Customer } from './interfaces/customer.interface';
 
 @Injectable()
 export class AppService {
   private customer: Customer;
+  private config: ConfigService;
 
   setCustomer(customer: Customer): void {
     this.customer = customer;
@@ -60,7 +62,7 @@ export class AppService {
     console.log(orgConfig);
 
     let html = '<h2>Sample Config Form</h2>';
-    const url = 'http://localhost:3000';
+    const url = this.config.get<string>('url');
 
     html += 'Current config for orgId=' + orgId + '<br>\n';
     html += 'name=' + orgConfig[orgId].name + '<br>\n';
