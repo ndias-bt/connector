@@ -6,7 +6,9 @@ import { google } from 'googleapis';
 function getConnectorUrl() {
   console.log("Detecting connector url...");
 
-  let connectorUrl = 'http://' + process.env.IP_ADDRESS + ':' + process.env.PORT;
+  let connectorUrl = process.env.BASE_URL;
+
+  // let connectorUrl = 'http://' + process.env.IP_ADDRESS + ':' + process.env.PORT;
   console.log("Using default from environment setting:", connectorUrl);
 
   if (process.env.RUN_ENVIRONMENT === 'gcp') {
