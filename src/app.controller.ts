@@ -54,7 +54,7 @@ export class AppController {
 
   @Get('config')
   getConfig() {
-    return {};
+    //return {}
     // return {
     //   url:
     //       'http://' +
@@ -63,6 +63,9 @@ export class AppController {
     //       this.configService.get<string>('port') +
     //       '/form',
     // };
+    return {
+      url: this.config.get<string>('url') + '/form',
+    };
   }
 
   @Get('transactions')
