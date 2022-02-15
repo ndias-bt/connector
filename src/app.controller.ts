@@ -63,8 +63,9 @@ export class AppController {
     //       this.configService.get<string>('port') +
     //       '/form',
     // };
+    const url = this.config.get<string>('url') + '/form';
     return {
-      url: this.config.get<string>('url') + '/form',
+      url: url,
     };
   }
 
