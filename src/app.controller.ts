@@ -45,7 +45,7 @@ export class AppController {
   @Get('info')
   getInfo(@Req() request: Request): Data {
     let orginalUrl = request.originalUrl;
-    orginalUrl = orginalUrl.replace('/info', '/cats');
+    orginalUrl = orginalUrl.replace('/info', '/dogs');
     const url = request.protocol + '://' + request.get('host') + orginalUrl;
     return {
       url: url,
