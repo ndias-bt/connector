@@ -55,7 +55,6 @@ export class AppController {
   @Get('config')
   getConfig() {
     return {
-      url: process.env.BASE_URL + '/form',
     };
   }
 
