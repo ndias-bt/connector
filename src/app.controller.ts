@@ -67,19 +67,19 @@ export class AppController {
     response.send(this.appService.getTransactions(object, object_id));
   }
 
-  @Get('cats')
+  @Get('dogs')
   getCats(@Res() response: Response) {
     const fetch = require('node-fetch');
 
-    const url = 'https://cataas.com/cat?json=true';
+    const url = 'https://dog.ceo/api/breeds/image/random';
 
     const settings = { method: 'Get' };
 
     fetch(url, settings)
       .then((res) => res.json())
       .then((json) => {
-        const cat = json.url;
-        const html = `<img src='https://cataas.com/${cat}' height="200" width="200">`;
+        const dog = json.message;
+        const html = `<img src='${dog}' height="200" width="200">`;
         response.set('Content-Type', 'text/html');
         response.send(html);
       });
