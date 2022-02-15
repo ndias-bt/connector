@@ -34,7 +34,7 @@ export const configuration = () => ({
   ipAddress: process.env.IP_ADDRESS,
   hostname: os.hostname(),
   port: process.env.PORT,
-  url: getConnectorUrl(),
+  url: process.env.BASE_URL,
   registrationUrl: process.env.REGISTRATION_URL,
 });
 

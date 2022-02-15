@@ -54,18 +54,8 @@ export class AppController {
 
   @Get('config')
   getConfig() {
-    //return {}
-    // return {
-    //   url:
-    //       'http://' +
-    //       this.configService.get<string>('ipAddress') +
-    //       ':' +
-    //       this.configService.get<string>('port') +
-    //       '/form',
-    // };
-    const url = this.config.get<string>('url') + '/form';
     return {
-      url: url,
+      url: process.env.BASE_URL + '/form',
     };
   }
 
