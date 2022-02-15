@@ -45,7 +45,7 @@ export class AppController {
   @Get('info')
   getInfo(@Req() request: Request): Data {
     let orginalUrl = request.originalUrl;
-    orginalUrl = orginalUrl.replace('/info', '/transactions');
+    orginalUrl = orginalUrl.replace('/info', '/cats');
     const url = request.protocol + '://' + request.get('host') + orginalUrl;
     return {
       url: url,
@@ -65,6 +65,24 @@ export class AppController {
     const object_id = request.query[OBJECT_ID] as string;
     response.set('Content-Type', 'text/html');
     response.send(this.appService.getTransactions(object, object_id));
+  }
+
+  @Get('cats')
+  getCats(@Res() response: Response) {
+    const fetch = require('node-fetch');
+
+    const url = 'https://cataas.com/cat?json=true';
+
+    const settings = { method: 'Get' };
+
+    fetch(url, settings)
+      .then((res) => res.json())
+      .then((json) => {
+        const cat = json.url;
+        const html = `<img src='https://cataas.com/${cat}' height="200" width="200">`;
+        response.set('Content-Type', 'text/html');
+        response.send(html);
+      });
   }
 
   @Get('form')

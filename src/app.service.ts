@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import { Customer } from './interfaces/customer.interface';
 
 @Injectable()
@@ -27,9 +27,18 @@ export class AppService {
     }
     html += '<table width="100%">';
     html += '<tr><th>Date</th><th>Description</th><th>Amount</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Nespresso</th><th>$25.88</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Ralphs</th><th>$101.22</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Best Buy</th><th>$722.22</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Nespresso</th><th>$25.88</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Ralphs</th><th>$101.22</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Best Buy</th><th>$722.22</th></tr>';
     html += '</table>';
     return html;
   }
@@ -60,7 +69,7 @@ export class AppService {
 
     console.log(orgConfig);
 
-    let html = '<h2>Sample Config Form</h2>';
+    let html = '<h2>A Different Config Form</h2>';
     const url = process.env.BASE_URL;
 
     html += 'Current config for orgId=' + orgId + '<br>\n';
@@ -69,10 +78,10 @@ export class AppService {
     html += '<hr>\n';
 
     html += `<form method="POST" action="${url}/orgconfigs/${orgId}">`;
-    html += '<label for="name">Name:</label>';
+    html += '<label for="name">TOKEN:</label>';
     html += '<input type="text" id="name" name="name" value="John Smith">';
     html += '<br>';
-    html += '<label for="email">Email:</label>';
+    html += '<label for="email">SECRET:</label>';
     html += '<input type="text" id="email" name="email" value="">';
     html += '<br>';
     html += '<input type="submit">';
