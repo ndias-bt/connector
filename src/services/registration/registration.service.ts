@@ -35,7 +35,7 @@ export class RegistrationService implements OnApplicationBootstrap {
     };
 
     const connector: Connector = {
-      base_url: await this.getCloudRunConnectorUrl(process.env.BASE_URL),
+      base_url: await this.getCloudRunConnectorUrl(process.env.NAME),
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       endpoints: [infoEndpoint, configEndpoint],
