@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { ConfigService } from '@nestjs/config';
 import { Endpoint } from '../../interfaces/endpoint.interface';
 import { Connector } from '../../interfaces/connector.interface';
-
 import { google } from 'googleapis';
 
 @Injectable()
