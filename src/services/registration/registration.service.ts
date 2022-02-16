@@ -55,36 +55,18 @@ export class RegistrationService implements OnApplicationBootstrap {
       .pipe(map((response) => response.data));
   }
 
-  // getConnectorUrl() {
-  //   console.log('Detecting connector url...');
-  //
-  //   let connectorUrl = process.env.BASE_URL;
-  //
-  //   // let connectorUrl = 'http://' + process.env.IP_ADDRESS + ':' + process.env.PORT;
-  //   console.log('Using default from environment setting:', connectorUrl);
-  //
-  //   if (process.env.RUN_ENVIRONMENT === 'gcp') {
-  //     console.log(
-  //       'GCP run environment detected. Searching for connector url using cloud run api.',
-  //     );
-  //     getCloudRunConnectorUrl(process.env.NAME).then((urls) => {
-  //       if (urls.length === 1) {
-  //         connectorUrl = urls.pop();
-  //         console.log('Found url using cloud run api:', connectorUrl);
-  //       }
-  //     });
-  //   }
-  //
-  //   console.log('final connector url: ', connectorUrl);
-  //   return connectorUrl;
-  // }
-
+  /**
+   * Searches cloud run api for a connector
+   * @param connectorName
+   */
   async getCloudRunConnectorUrl(connectorName: string) {
+
     console.log(
       '### looking up connector url for connectorName',
       connectorName,
     );
 
+    // TODO: put this default in a config file, with way to override
     const connectorFarmProjectId = 'connector-registry-poc';
 
     const run = google.run('v1');
@@ -92,8 +74,6 @@ export class RegistrationService implements OnApplicationBootstrap {
     const auth = new google.auth.GoogleAuth({
       scopes: ['https://www.googleapis.com/auth/cloud-platform'],
     });
-
-    console.log('### google auth', auth);
 
     const authClient = await auth.getClient();
     google.options({ auth: authClient });
@@ -103,9 +83,18 @@ export class RegistrationService implements OnApplicationBootstrap {
       watch: false,
     };
 
-    const results = await run.namespaces.services.list(params);
+    // NOTE: we use services.list instead of services.get here
+    //  b/c the run api is coded to hit the global run.googleapis.com
+    //  endpoint instead of the regional endpoints, and the global
+    //  endpoint is restricted to list calls only
+    //
+    //  This is a security risk, since any connector would be able
+    //  to retrieve other connectors registered in the same namespace.
+    //
+    //  TODO: replace this with a services.get call, or other method
+    //  that fetches url for the specific connector only.
 
-    console.log('### results', results);
+    const results = await run.namespaces.services.list(params);
 
     const connectorUrls = [];
 
