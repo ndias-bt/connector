@@ -42,6 +42,9 @@ export class RegistrationService implements OnApplicationBootstrap {
       name: this.config.get<string>('name'),
       version: '1.0',
     };
+
+    console.log('### connector.base_url', connector.base_url);
+
     return this.http
       .post(this.config.get<string>('registrationUrl'), connector)
       .pipe(map((response) => response.data));
@@ -110,6 +113,6 @@ export class RegistrationService implements OnApplicationBootstrap {
     });
 
     console.log('### connectorUrls', connectorUrls);
-    return connectorUrls[0];
+    return connectorUrls.pop();
   }
 }
