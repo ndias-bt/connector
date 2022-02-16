@@ -17,8 +17,11 @@ export class RegistrationService implements OnApplicationBootstrap {
   onApplicationBootstrap(): any {
     console.log('### initiating connector registration');
     this.register().then((result) => {
-      console.log('### result', result);
+      result.subscribe((data) => {
+        console.log(data);
+      });
     });
+    console.log('### done registering');
   }
 
   async register() {
