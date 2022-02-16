@@ -34,7 +34,10 @@ export class RegistrationService implements OnApplicationBootstrap {
     };
 
     const connector: Connector = {
-      base_url: this.config.get<string>('url'),
+      base_url:
+        process.env.RUN_ENVIRONMENT === 'gcp'
+          ? this.config.get<string>('hostname')
+          : this.config.get<string>('url'),
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       endpoints: [infoEndpoint, configEndpoint],
