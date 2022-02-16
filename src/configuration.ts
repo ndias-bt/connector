@@ -27,10 +27,7 @@ function getConnectorUrl() {
   return connectorUrl;
 }
 
-getConnectorUrl().then( (url) => {
-  console.log("### looked up connector url as:", url);
-
-});
+console.log("### connector url might be: ", getConnectorUrl());
 
 export const configuration = () => ({
   name: process.env.NAME,
