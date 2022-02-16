@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 // import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
-import { RegistrationService } from './services/registration/registration.service';
 import { configuration } from './configuration'; // this is new
+import { RegistrationService } from './services/registration/registration.service';
 import { OrgconfigsController } from './orgconfigs/orgconfigs.controller';
 
 @Module({
