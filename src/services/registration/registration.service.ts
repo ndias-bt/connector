@@ -39,7 +39,7 @@ export class RegistrationService implements OnApplicationBootstrap {
     };
 
     const connector: Connector = {
-      base_url: await this.getCloudRunConnectorUrl(process.env.NAME),
+      base_url: await this.getBaseUrl(),
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       endpoints: [infoEndpoint, configEndpoint],
@@ -55,11 +55,24 @@ export class RegistrationService implements OnApplicationBootstrap {
   }
 
   /**
+   * @return baseUrl - the base url of the connector to be registered
+   * Use the google cloud run provided URL if detectable, otherwise
+
+   */
+  async getBaseUrl() {
+    let cloudRunUrl = null;
+    if (process.env.RUN_ENVIRONMENT === 'gcp') {
+      cloudRunUrl = await this.getCloudRunConnectorUrl(process.env.NAME);
+    }
+
+    return cloudRunUrl || this.config.get<string>('url');
+  }
+
+  /**
    * Searches cloud run api for a connector
    * @param connectorName
    */
   async getCloudRunConnectorUrl(connectorName: string) {
-
     console.log(
       '### looking up connector url for connectorName',
       connectorName,

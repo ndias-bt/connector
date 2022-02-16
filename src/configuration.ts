@@ -11,6 +11,6 @@ export const configuration = () => ({
   ipAddress: process.env.IP_ADDRESS,
   hostname: os.hostname(),
   port: process.env.PORT,
-  url: process.env.BASE_URL,
+  url: process.env.BASE_URL || os.hostname(),
   registrationUrl: process.env.REGISTRATION_URL,
 });
