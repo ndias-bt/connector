@@ -8,6 +8,8 @@ async function bootstrap() {
 
   console.log('### hostname = ' + os.hostname());
 
+
   await app.listen(process.env.PORT);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
