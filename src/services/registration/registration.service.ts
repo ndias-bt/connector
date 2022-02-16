@@ -62,7 +62,7 @@ export class RegistrationService implements OnApplicationBootstrap {
    */
   async getBaseUrl() {
     let cloudRunUrl = null;
-    if (process.env.RUN_ENVIRONMENT === 'gcp') {
+    if (process.env.K_SERVICE) {
       cloudRunUrl = await this.getCloudRunConnectorUrl(process.env.NAME);
     }
 
