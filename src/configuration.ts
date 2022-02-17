@@ -57,7 +57,9 @@ async function getCloudRunConnectorUrl(connectorName: string) {
 
   results.data.items.forEach((item) => {
     console.log(`### found connector ${item.metadata.name}`);
-    connectorUrls.push(item.status.url);
+    if (item.metadata.name === connectorName) {
+      connectorUrls.push(item.status.url);
+    }
   });
 
   if (connectorUrls.length === 1) {
