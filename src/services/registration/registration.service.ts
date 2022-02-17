@@ -15,15 +15,13 @@ export class RegistrationService implements OnApplicationBootstrap {
 
   onApplicationBootstrap(): any {
     console.log('### initiating connector registration');
-    this.register().then((result) => {
-      result.subscribe((data) => {
-        console.log(data);
-      });
+    this.register().subscribe((data) => {
+      console.log(data);
     });
     console.log('### done registering');
   }
 
-  async register() {
+  register() {
     const configEndpoint: Endpoint = {
       name: 'config',
       address: this.config.get<string>('ipAddress'),

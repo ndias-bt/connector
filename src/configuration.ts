@@ -24,6 +24,7 @@ function getConnectorUrl() {
 
   if (connectorName) {
     getCloudRunConnectorUrl(connectorName).then((url: string) => {
+      console.log('### getCloudRunConnectorUrl returned ', url);
       if (url) {
         base_url = url;
       }
