@@ -4,9 +4,9 @@ import {
   OnApplicationBootstrap,
 } from '@nestjs/common';
 import { map } from 'rxjs/operators';
-import { ConfigService } from '@nestjs/config';
 import { Endpoint } from '../../interfaces/endpoint.interface';
 import { Connector } from '../../interfaces/connector.interface';
+import { ConfigService } from '@nestjs/config';
 // import { google } from 'googleapis';
 
 @Injectable()
@@ -15,6 +15,7 @@ export class RegistrationService implements OnApplicationBootstrap {
 
   onApplicationBootstrap(): any {
     console.log('### initiating connector registration');
+    console.log("### this.config.get('url') =", this.config.get<string>('url'));
     this.register().subscribe((data) => {
       console.log(data);
     });

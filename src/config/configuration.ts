@@ -1,10 +1,9 @@
 // configuration.ts
 
 import * as os from 'os';
-
 import { google } from 'googleapis';
 
-export const configuration = () => ({
+export default () => ({
   name: process.env.NAME,
   displayName: process.env.DISPLAY_NAME,
   description: process.env.DESCRIPTION,
