@@ -15,6 +15,7 @@ import * as Joi from 'joi';
     //   rootPath: join(__dirname, '..', 'public'),
     // }),
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: `${process.cwd()}/.env`,
       load: [configuration],
       validationSchema: Joi.object({
