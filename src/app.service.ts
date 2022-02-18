@@ -1,9 +1,32 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { Customer } from './interfaces/customer.interface';
+import { UrlDiscoveryService } from './services/url-discovery/url-discovery.service';
+import { RegistrationService } from './services/registration/registration.service';
 
 @Injectable()
-export class AppService {
+export class AppService implements OnApplicationBootstrap {
+  connectorBaseUrl: string;
+
   private customer: Customer;
+
+  constructor(
+    private readonly urlDiscoveryService: UrlDiscoveryService,
+    private readonly registrationService: RegistrationService,
+  ) {}
+
+  private setConnectorBaseUrl(url: string) {
+    this.connectorBaseUrl = url;
+  }
+  private getConnectorBaseUrl(): string {
+    return this.connectorBaseUrl;
+  }
+
+  async onApplicationBootstrap(): Promise<any> {
+    this.setConnectorBaseUrl(await this.urlDiscoveryService.getConnectorUrl());
+    this.registrationService.setUrlToRegister(this.connectorBaseUrl);
+    const response = await this.registrationService.register();
+    console.log('### registration response:', response);
+  }
 
   setCustomer(customer: Customer): void {
     this.customer = customer;
@@ -27,9 +50,18 @@ export class AppService {
     }
     html += '<table width="100%">';
     html += '<tr><th>Date</th><th>Description</th><th>Amount</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Nespresso</th><th>$25.88</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Ralphs</th><th>$101.22</th></tr>';
-    html += '<tr><th>' + Date().toLocaleLowerCase('en-US') + '</th><th>Best Buy</th><th>$722.22</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Nespresso</th><th>$25.88</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Ralphs</th><th>$101.22</th></tr>';
+    html +=
+      '<tr><th>' +
+      Date().toLocaleLowerCase('en-US') +
+      '</th><th>Best Buy</th><th>$722.22</th></tr>';
     html += '</table>';
     return html;
   }
@@ -61,7 +93,7 @@ export class AppService {
     console.log(orgConfig);
 
     let html = '<h2>Sample Config Form</h2>';
-    const url = process.env.BASE_URL;
+    const url = this.connectorBaseUrl;
 
     html += 'Current config for orgId=' + orgId + '<br>\n';
     html += 'name=' + orgConfig[orgId].name + '<br>\n';

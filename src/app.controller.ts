@@ -4,6 +4,7 @@ import { Identity } from './interfaces/identity.interface';
 import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import { Data } from './interfaces/data.interface';
+import { UrlDiscoveryService } from './services/url-discovery/url-discovery.service';
 
 const ORG = 'org';
 const OBJECT = 'object';
@@ -24,8 +25,8 @@ export class AppController {
       description: this.config.get<string>('description'),
       version: this.config.get<string>('version'),
       company: this.config.get<string>('company'),
-      icon: this.config.get<string>('url') + '/icon',
-      url: this.config.get<string>('url'),
+      icon: this.appService.connectorBaseUrl + '/icon',
+      url: this.appService.connectorBaseUrl,
       hasConfig: true,
       hasInfo: true,
     };
@@ -44,18 +45,20 @@ export class AppController {
 
   @Get('info')
   getInfo(@Req() request: Request): Data {
-    let orginalUrl = request.originalUrl;
-    orginalUrl = orginalUrl.replace('/info', '/transactions');
-    const url = request.protocol + '://' + request.get('host') + orginalUrl;
+    //
+    //
+    // let originalUrl = request.originalUrl;
+    // originalUrl = originalUrl.replace('/info', '/transactions');
+    // const url = request.protocol + '://' + request.get('host') + orginalUrl;
     return {
-      url: url,
+      url: this.appService.connectorBaseUrl + '/transactions',
     };
   }
 
   @Get('config')
   getConfig() {
     return {
-      url: process.env.BASE_URL + '/form',
+      url: this.appService.connectorBaseUrl + '/form',
     };
   }
 

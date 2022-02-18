@@ -7,12 +7,10 @@ import { map } from 'rxjs/operators';
 import { Endpoint } from '../../interfaces/endpoint.interface';
 import { Connector } from '../../interfaces/connector.interface';
 import { ConfigService } from '@nestjs/config';
-// import { GoogleCloudRunService } from '../google-cloud-run/google-cloud-run.service';
-// import { google } from 'googleapis';
 
 @Injectable()
 export class RegistrationService {
-  private cloudUrl: string;
+  private urlToRegister: string;
 
   constructor(
     private readonly http: HttpService,
@@ -27,12 +25,12 @@ export class RegistrationService {
   //   console.log('### done registering');
   // }
 
-  getCloudUrl() {
-    return this.cloudUrl;
+  getUrlToRegister() {
+    return this.urlToRegister;
   }
 
-  setCloudUrl(url: string) {
-    this.cloudUrl = url;
+  setUrlToRegister(url: string) {
+    this.urlToRegister = url;
   }
 
   async register() {
@@ -52,7 +50,7 @@ export class RegistrationService {
 
     const connector: Connector = {
       name: this.config.get<string>('name'),
-      base_url: this.cloudUrl,
+      base_url: this.urlToRegister,
       displayName: this.config.get<string>('displayName'),
       description: this.config.get<string>('description'),
       company: this.config.get<string>('company'),

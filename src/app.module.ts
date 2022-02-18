@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 // import { join } from 'path';
 import configuration from './config/configuration'; // this is new
 import { ConfigModule } from '@nestjs/config';
-import { GoogleCloudRunService } from './services/google-cloud-run/google-cloud-run.service';
+import { UrlDiscoveryService } from './services/url-discovery/url-discovery.service';
 import { RegistrationService } from './services/registration/registration.service';
 import { OrgconfigsController } from './orgconfigs/orgconfigs.controller';
 import * as Joi from 'joi';
@@ -39,6 +39,6 @@ import * as Joi from 'joi';
     HttpModule,
   ],
   controllers: [AppController, OrgconfigsController],
-  providers: [AppService, RegistrationService, GoogleCloudRunService],
+  providers: [AppService, RegistrationService, UrlDiscoveryService],
 })
 export class AppModule {}

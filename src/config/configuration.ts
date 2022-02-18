@@ -1,9 +1,9 @@
 // configuration.ts
 
 import * as os from 'os';
-import { google } from 'googleapis';
+import { Configuration } from '../interfaces/configuration.interface';
 
-export default () => ({
+export default (): Configuration => ({
   name: process.env.NAME,
   displayName: process.env.DISPLAY_NAME,
   description: process.env.DESCRIPTION,
@@ -63,11 +63,5 @@ export default () => ({
 //     }
 //   });
 //
-//   if (connectorUrls.length === 1) {
-//     console.log('### returning', connectorUrls[0]);
-//     return connectorUrls[0];
-//   } else {
-//     console.log('### errors', connectorUrls);
-//     return null;
-//   }
+
 // }
