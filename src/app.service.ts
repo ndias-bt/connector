@@ -22,10 +22,16 @@ export class AppService implements OnApplicationBootstrap {
   }
 
   async onApplicationBootstrap(): Promise<any> {
-    this.setConnectorBaseUrl(await this.urlDiscoveryService.getConnectorUrl());
-    this.registrationService.setUrlToRegister(this.connectorBaseUrl);
-    const response = await this.registrationService.register();
-    console.log('### registration response:', response);
+    try {
+      this.setConnectorBaseUrl(
+        await this.urlDiscoveryService.getConnectorUrl(),
+      );
+      this.registrationService.setUrlToRegister(this.connectorBaseUrl);
+      const response = await this.registrationService.register();
+      console.log('### registration response:', response);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   setCustomer(customer: Customer): void {
