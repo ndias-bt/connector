@@ -5,7 +5,7 @@ import { RegistrationService } from './services/registration/registration.servic
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
-  connectorBaseUrl: string;
+  private baseUrl: string;
 
   private customer: Customer;
 
@@ -14,19 +14,21 @@ export class AppService implements OnApplicationBootstrap {
     private readonly registrationService: RegistrationService,
   ) {}
 
-  private setConnectorBaseUrl(url: string) {
-    this.connectorBaseUrl = url;
+  setBaseUrl(url: string) {
+    this.baseUrl = url;
   }
-  private getConnectorBaseUrl(): string {
-    return this.connectorBaseUrl;
+
+  getBaseUrl() {
+    return this.baseUrl;
   }
+
 
   async onApplicationBootstrap(): Promise<any> {
     try {
-      this.setConnectorBaseUrl(
+      this.setBaseUrl(
         await this.urlDiscoveryService.getConnectorUrl(),
       );
-      this.registrationService.setUrlToRegister(this.connectorBaseUrl);
+      this.registrationService.setUrlToRegister(this.baseUrl);
       const response = await this.registrationService.register();
       console.log('### registration response:', response);
     } catch (error) {
@@ -99,7 +101,7 @@ export class AppService implements OnApplicationBootstrap {
     console.log(orgConfig);
 
     let html = '<h2>Sample Config Form</h2>';
-    const url = this.connectorBaseUrl;
+    const url = this.baseUrl;
 
     html += 'Current config for orgId=' + orgId + '<br>\n';
     html += 'name=' + orgConfig[orgId].name + '<br>\n';

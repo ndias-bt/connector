@@ -1,9 +1,7 @@
 import {
   Injectable,
   HttpService,
-  OnApplicationBootstrap,
 } from '@nestjs/common';
-import { map } from 'rxjs/operators';
 import { Endpoint } from '../../interfaces/endpoint.interface';
 import { Connector } from '../../interfaces/connector.interface';
 import { ConfigService } from '@nestjs/config';
@@ -16,14 +14,6 @@ export class RegistrationService {
     private readonly http: HttpService,
     private readonly config: ConfigService,
   ) {}
-
-  // onApplicationBootstrap(): any {
-  //   console.log('### initiating connector registration');
-  //   this.register().subscribe((data) => {
-  //     console.log(data);
-  //   });
-  //   console.log('### done registering');
-  // }
 
   getUrlToRegister() {
     return this.urlToRegister;

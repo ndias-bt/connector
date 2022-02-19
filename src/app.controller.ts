@@ -25,8 +25,8 @@ export class AppController {
       description: this.config.get<string>('description'),
       version: this.config.get<string>('version'),
       company: this.config.get<string>('company'),
-      icon: this.appService.connectorBaseUrl + '/icon',
-      url: this.appService.connectorBaseUrl,
+      icon: this.appService.getBaseUrl() + '/icon',
+      url: this.appService.getBaseUrl(),
       hasConfig: true,
       hasInfo: true,
     };
@@ -51,14 +51,14 @@ export class AppController {
     // originalUrl = originalUrl.replace('/info', '/transactions');
     // const url = request.protocol + '://' + request.get('host') + orginalUrl;
     return {
-      url: this.appService.connectorBaseUrl + '/transactions',
+      url: this.appService.getBaseUrl() + '/transactions',
     };
   }
 
   @Get('config')
   getConfig() {
     return {
-      url: this.appService.connectorBaseUrl + '/form',
+      url: this.appService.getBaseUrl() + '/form',
     };
   }
 
